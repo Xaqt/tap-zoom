@@ -1,5 +1,4 @@
 """"""
-
 from __future__ import annotations
 
 from singer_sdk.authenticators import OAuthAuthenticator, SingletonMeta
@@ -17,8 +16,11 @@ class ZoomOAuthAuthenticator(OAuthAuthenticator, metaclass=SingletonMeta):
         """Get formatted body of the OAuth authorization request."""
 
         return {
-            "grant_type": "account_credentials",
+            "grant_type": "authorization_code",
             "account_id": self.config.get("account_id"),
+            "grant_type": "authorization_code",
+            "code": self.config.get("code"),
+            "redirect_uri": self.config.get("redirect_uri"),
             "client_id": self.client_id,
             "client_secret": self.client_secret,
         }
